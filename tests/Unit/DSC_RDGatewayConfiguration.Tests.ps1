@@ -59,7 +59,7 @@ AfterAll {
 Describe 'DSC_RDGatewayConfiguration\Get-TargetResource' -Tag 'Get' {
     Context 'When the resource exists' {
         BeforeAll {
-            Mock -CommandName Assert-Module
+            Mock -CommandName Import-RemoteDesktopModule
         }
 
         Context 'When ''GatewayMode'' is not Custom' {
@@ -84,6 +84,8 @@ Describe 'DSC_RDGatewayConfiguration\Get-TargetResource' -Tag 'Get' {
                     $result.ConnectionBroker | Should -Be $testParams.ConnectionBroker
                     $result.GatewayMode | Should -Be 'Automatic'
                 }
+
+                Should -Invoke -CommandName Import-RemoteDesktopModule -Exactly -Times 1 -Scope It
             }
         }
 
@@ -117,13 +119,15 @@ Describe 'DSC_RDGatewayConfiguration\Get-TargetResource' -Tag 'Get' {
                     $result.UseCachedCredentials | Should -BeTrue
                     $result.BypassLocal | Should -BeFalse
                 }
+
+                Should -Invoke -CommandName Import-RemoteDesktopModule -Exactly -Times 1 -Scope It
             }
         }
     }
 
     Context 'When the resource does not exist' {
         BeforeAll {
-            Mock -CommandName Assert-Module
+            Mock -CommandName Import-RemoteDesktopModule
             Mock -CommandName Get-RDDeploymentGatewayConfiguration
         }
 
@@ -144,6 +148,8 @@ Describe 'DSC_RDGatewayConfiguration\Get-TargetResource' -Tag 'Get' {
                 $result.UseCachedCredentials | Should -BeNullOrEmpty
                 $result.BypassLocal | Should -BeNullOrEmpty
             }
+
+            Should -Invoke -CommandName Import-RemoteDesktopModule -Exactly -Times 1 -Scope It
         }
     }
 }
@@ -151,7 +157,7 @@ Describe 'DSC_RDGatewayConfiguration\Get-TargetResource' -Tag 'Get' {
 Describe 'DSC_RDGatewayConfiguration\Set-TargetResource' -Tag 'Set' {
     Context 'When ''GatewayMode'' is not Custom' {
         BeforeAll {
-            Mock -CommandName Assert-Module
+            Mock -CommandName Import-RemoteDesktopModule
             Mock -CommandName Assert-BoundParameter -RemoveParameterType @('RequiredBehavior')
             Mock -CommandName Set-RDDeploymentGatewayConfiguration
             Mock -CommandName Get-RDServer
@@ -172,7 +178,7 @@ Describe 'DSC_RDGatewayConfiguration\Set-TargetResource' -Tag 'Set' {
                         $null = Set-TargetResource @testParams
                     }
 
-                    Should -Invoke -CommandName Assert-Module -Exactly -Times 1 -Scope It
+                    Should -Invoke -CommandName Import-RemoteDesktopModule -Exactly -Times 1 -Scope It
                     Should -Invoke -CommandName Assert-BoundParameter -Exactly -Times 0 -Scope It
                     Should -Invoke -CommandName Set-RDDeploymentGatewayConfiguration -Exactly -Times 1 -Scope It -ParameterFilter {
                         $null -eq $GatewayExternalFqdn
@@ -196,7 +202,7 @@ Describe 'DSC_RDGatewayConfiguration\Set-TargetResource' -Tag 'Set' {
                         $null = Set-TargetResource @testParams
                     }
 
-                    Should -Invoke -CommandName Assert-Module -Exactly -Times 1 -Scope It
+                    Should -Invoke -CommandName Import-RemoteDesktopModule -Exactly -Times 1 -Scope It
                     Should -Invoke -CommandName Assert-BoundParameter -Exactly -Times 0 -Scope It
                     Should -Invoke -CommandName Set-RDDeploymentGatewayConfiguration -Exactly -Times 1 -Scope It -ParameterFilter {
                         $null -eq $GatewayExternalFqdn
@@ -245,7 +251,7 @@ Describe 'DSC_RDGatewayConfiguration\Set-TargetResource' -Tag 'Set' {
                         $null = Set-TargetResource @testParams
                     }
 
-                    Should -Invoke -CommandName Assert-Module -Exactly -Times 1 -Scope It
+                    Should -Invoke -CommandName Import-RemoteDesktopModule -Exactly -Times 1 -Scope It
                     Should -Invoke -CommandName Assert-BoundParameter -Exactly -Times 0 -Scope It
                     Should -Invoke -CommandName Set-RDDeploymentGatewayConfiguration -Exactly -Times 1 -Scope It -ParameterFilter {
                         $null -eq $GatewayExternalFqdn
@@ -288,7 +294,7 @@ Describe 'DSC_RDGatewayConfiguration\Set-TargetResource' -Tag 'Set' {
                         $null = Set-TargetResource @testParams
                     }
 
-                    Should -Invoke -CommandName Assert-Module -Exactly -Times 1 -Scope It
+                    Should -Invoke -CommandName Import-RemoteDesktopModule -Exactly -Times 1 -Scope It
                     Should -Invoke -CommandName Assert-BoundParameter -Exactly -Times 0 -Scope It
                     Should -Invoke -CommandName Set-RDDeploymentGatewayConfiguration -Exactly -Times 1 -Scope It -ParameterFilter {
                         $null -eq $GatewayExternalFqdn
@@ -302,7 +308,7 @@ Describe 'DSC_RDGatewayConfiguration\Set-TargetResource' -Tag 'Set' {
 
     Context 'When ''GatewayMode'' is Custom' {
         BeforeAll {
-            Mock -CommandName Assert-Module
+            Mock -CommandName Import-RemoteDesktopModule
             Mock -CommandName Assert-BoundParameter -RemoveParameterType @('RequiredBehavior')
             Mock -CommandName Set-RDDeploymentGatewayConfiguration
             Mock -CommandName Get-RDServer
@@ -322,7 +328,7 @@ Describe 'DSC_RDGatewayConfiguration\Set-TargetResource' -Tag 'Set' {
                     { Set-TargetResource @testParams } | Should -Throw
                 }
 
-                Should -Invoke -CommandName Assert-Module -Exactly -Times 1 -Scope It
+                Should -Invoke -CommandName Import-RemoteDesktopModule -Exactly -Times 1 -Scope It
                 Should -Invoke -CommandName Assert-BoundParameter -Exactly -Times 1 -Scope It
                 Should -Invoke -CommandName Set-RDDeploymentGatewayConfiguration -Exactly -Times 0 -Scope It
                 Should -Invoke -CommandName Get-RDServer -Exactly -Times 0 -Scope It
@@ -347,7 +353,7 @@ Describe 'DSC_RDGatewayConfiguration\Set-TargetResource' -Tag 'Set' {
                     $null = Set-TargetResource @testParams
                 }
 
-                Should -Invoke -CommandName Assert-Module -Exactly -Times 1 -Scope It
+                Should -Invoke -CommandName Import-RemoteDesktopModule -Exactly -Times 1 -Scope It
                 Should -Invoke -CommandName Assert-BoundParameter -Exactly -Times 1 -Scope It
                 Should -Invoke -CommandName Set-RDDeploymentGatewayConfiguration -Exactly -Times 1 -Scope It -ParameterFilter {
                     $null -ne $GatewayExternalFqdn
@@ -375,7 +381,7 @@ Describe 'DSC_RDGatewayConfiguration\Set-TargetResource' -Tag 'Set' {
                     $null = Set-TargetResource @testParams
                 }
 
-                Should -Invoke -CommandName Assert-Module -Exactly -Times 1 -Scope It
+                Should -Invoke -CommandName Import-RemoteDesktopModule -Exactly -Times 1 -Scope It
                 Should -Invoke -CommandName Assert-BoundParameter -Exactly -Times 1 -Scope It
                 Should -Invoke -CommandName Set-RDDeploymentGatewayConfiguration -Exactly -Times 1 -Scope It -ParameterFilter {
                     $null -ne $GatewayExternalFqdn

@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- All DSC resources now import the RemoteDesktop CDXML module with
+  `Import-Module -Global` instead of `Assert-Module -ImportModule`. The
+  CDXML proxy commands were not visible inside `wmiprvse.exe` because
+  `Assert-Module` imported into its own function scope. This caused every
+  resource to fail with `The term 'Get-RDServer' is not recognized` when
+  applied by the LCM on Windows Server 2022/2025
+  ([issue #136](https://github.com/dsccommunity/RemoteDesktopServicesDsc/issues/136)).
+- The RDMS service is now started before importing the RemoteDesktop module
+  in every resource function. Previously, only `DSC_RDSessionDeployment`
+  `Get-TargetResource` started the service, and only after the import
+  attempt, causing failures after reboot when the delayed-start service had
+  not yet registered its WMI namespace
+  ([issue #136](https://github.com/dsccommunity/RemoteDesktopServicesDsc/issues/136)).
+
+### Changed
+
+- Added shared helper function `Import-RemoteDesktopModule` to the
+  `RemoteDesktopServicesDsc.Common` module to avoid duplicating the
+  RDMS-start-and-import logic across all 9 DSC resources
+  ([issue #136](https://github.com/dsccommunity/RemoteDesktopServicesDsc/issues/136)).
+- Removed the now-redundant inline RDMS service start block from
+  `DSC_RDSessionDeployment` `Get-TargetResource`
+  ([issue #136](https://github.com/dsccommunity/RemoteDesktopServicesDsc/issues/136)).
 - DSC_RDSessionDeployment
   - Fixed `Set-TargetResource` so it correctly calls `New-RDSessionDeployment`
     when no deployment exists. The `$null` check on the return value of
