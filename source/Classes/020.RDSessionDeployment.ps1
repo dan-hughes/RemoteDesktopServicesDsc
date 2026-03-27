@@ -5,6 +5,14 @@
     .DESCRIPTION
         This resource is used to configure the Remote Desktop Session Deployment.
 
+        ## Requirements
+
+        - Target machine must be running Windows Server 2012 or later.
+
+        ## Known issues
+
+        All issues are not listed here, see [all open issues](https://github.com/dsccommunity/RemoteDesktopServicesDsc/issues?q=is%3Aissue+is%3Aopen+in%3Atitle+RDSessionDeployment).
+
     .PARAMETER ConnectionBroker
         Specifies the FQDN of a server to host the RD Connection Broker role service.
 
@@ -39,6 +47,7 @@ class RDSessionDeployment : ResourceBase
 
     RDSessionDeployment () : base ($PSScriptRoot)
     {
+        $this.ExcludeDscProperties = @()
     }
 
     [RDSessionDeployment] Get()

@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - `RDSessionDeployment`
-  - Converted to class based resource [Issue #151](https://github.com/dsccommunity/RemoteDesktopServicesDsc/issues/151).
+  - Converted to class-based resource [Issue #151](https://github.com/dsccommunity/RemoteDesktopServicesDsc/issues/151).
     - WebAccessServer is now NOT a required parameter, mirroring the use
       of the underlying cmdlet.
 

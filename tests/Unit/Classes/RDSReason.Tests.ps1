@@ -56,7 +56,7 @@ Describe 'RDSReason' -Tag 'RDSReason' {
         }
     }
 
-    Context 'When setting an reading values' {
+    Context 'When setting and reading values' {
         It 'Should be able to set value in instance' {
             $script:mockRDSReasonInstance = InModuleScope -ScriptBlock {
                 $RDSReasonInstance = [RDSReason]::new()
@@ -70,7 +70,7 @@ Describe 'RDSReason' -Tag 'RDSReason' {
 
         It 'Should be able read the values from instance' {
             $mockRDSReasonInstance.Code | Should -Be 'RDSReason:RDSReason:Ensure'
-            $mockRDSReasonInstance.Phrase = 'The property Ensure should be "Present", but was "Absent"'
+            $mockRDSReasonInstance.Phrase | Should -Be 'The property Ensure should be "Present", but was "Absent"'
         }
     }
 }

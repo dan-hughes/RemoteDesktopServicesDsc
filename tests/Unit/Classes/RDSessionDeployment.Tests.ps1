@@ -304,7 +304,7 @@ Describe 'RDSessionDeployment\Test()' -Tag 'Test' {
                 Property = 'WebAccessServer'
                 Current  = $null
                 Desired  = [System.String[]] @('webaccess1.lan', 'webaccess3.lan')
-            }
+            },
             @{
                 Property = 'WebAccessServer'
                 Current  = 'webaccess.lan'
