@@ -5,11 +5,12 @@
 
 configuration Example
 {
-    Import-DscResource -ModuleName 'RemoteDesktopServicesDsc'
+    Import-DscResource -ModuleName RemoteDesktopServicesDsc
 
-    node localhost {
-
-        RDSessionDeployment RDSDeployment {
+    node localhost
+    {
+        RDSessionDeployment RDSDeployment
+        {
             SessionHost      = 'rdsessionhost.server.fqdn'
             ConnectionBroker = 'connectionbroker.server.fqdn'
             WebAccessServer  = 'webaccess.server.fqdn'
