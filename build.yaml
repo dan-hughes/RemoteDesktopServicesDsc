@@ -8,6 +8,7 @@ CopyPaths:
   - DSCResources
   - Modules
 Encoding: UTF8
+Prefix: prefix.ps1
 VersionedOutputDirectory: true
 
 ####################################################
@@ -17,6 +18,11 @@ NestedModule:
   DscResource.Common:
     CopyOnly: true
     Path: ./output/RequiredModules/DscResource.Common
+    AddToManifest: false
+    Exclude: PSGetModuleInfo.xml
+  DscResource.Base:
+    CopyOnly: true
+    Path: ./output/RequiredModules/DscResource.Base
     AddToManifest: false
     Exclude: PSGetModuleInfo.xml
   RemoteDesktopServicesDsc.Common:
@@ -91,6 +97,7 @@ Pester:
       OutputEncoding: ascii
   ExcludeFromCodeCoverage:
     - Modules/DscResource.Common
+    - Modules/DscResource.Base
 
 ####################################################
 #           Code Coverage Configuration            #
@@ -124,6 +131,7 @@ DscTest:
       - output
     ExcludeModuleFile:
       - Modules/DscResource.Common
+      - Modules/DscResource.Base
       # Must exclude built module file because it should not be tested like MOF-based resources
       - RemoteDesktopServicesDsc.psm1
     MainGitBranch: main
