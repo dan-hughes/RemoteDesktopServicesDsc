@@ -102,12 +102,12 @@ class RDSessionDeployment : ResourceBase
         if ($properties.ContainsKey('SessionHost'))
         {
             $currentValues = $this.PropertiesNotInDesiredState.Where({ $_.Property -eq 'SessionHost' }).ActualValue
-            foreach ($server in ($properties.SessionHost | Where-Object { $_ -notin $currentValues }))
+            foreach ($server in ($properties.SessionHost.Where({ $_ -notin $currentValues })))
             {
                 $this.AddRole($server, 'RDS-RD-SERVER')
             }
 
-            foreach ($server in ($currentValues | Where-Object { $_ -notin $properties.SessionHost }))
+            foreach ($server in ($currentValues.Where({ $_ -notin $properties.SessionHost })))
             {
                 $this.RemoveRole($server, 'RDS-RD-SERVER')
             }
@@ -116,12 +116,12 @@ class RDSessionDeployment : ResourceBase
         if ($properties.ContainsKey('WebAccessServer'))
         {
             $currentValues = $this.PropertiesNotInDesiredState.Where({ $_.Property -eq 'WebAccessServer' }).ActualValue
-            foreach ($server in ($properties.WebAccessServer | Where-Object { $_ -notin $currentValues }))
+            foreach ($server in ($properties.WebAccessServer.Where({ $_ -notin $currentValues })))
             {
                 $this.AddRole($server, 'RDS-WEB-ACCESS')
             }
 
-            foreach ($server in ($currentValues | Where-Object { $_ -notin $properties.WebAccessServer }))
+            foreach ($server in ($currentValues.Where({ $_ -notin $properties.WebAccessServer })))
             {
                 $this.RemoveRole($server, 'RDS-WEB-ACCESS')
             }
