@@ -30,7 +30,7 @@
     FunctionsToExport    = @()
 
     # Cmdlets to export from this module
-    CmdletsToExport      = @()
+    CmdletsToExport      = '*'
 
     # DSC resources to export from this module
     DscResourcesToExport = @()

@@ -19,7 +19,7 @@ First version.
 
 configuration RDSessionDeployment_Full
 {
-    import-dscresource -modulename RemoteDesktopServicesDsc
+    Import-DscResource -ModuleName RemoteDesktopServicesDsc
 
     node localhost
     {
